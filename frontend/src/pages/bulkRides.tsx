@@ -1,38 +1,22 @@
 import { useRides } from "../hooks";
+import RideCard from "../components/RideCard"; // adjust path as needed
 
 const BulkRides = () => {
   const { loading, rides } = useRides();
 
-  if (loading) {
-    return <p>Loading rides...</p>;
-  }
-
-  if (!rides || rides.length === 0) {
-    return <p>No rides available.</p>;
-  }
+  if (loading) return <p className="text-center mt-10">Loading rides...</p>;
+  if (!rides || rides.length === 0) return <p className="text-center mt-10">No rides available.</p>;
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4">Available Rides</h2>
-      <ul className="space-y-2">
+    <div className="p-4 max-w-7xl mx-auto">
+      <h2 className="text-2xl font-bold mb-6 text-center text-indigo-700 dark:text-indigo-300">
+        Available Rides
+      </h2>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {rides.map((ride) => (
-          <li
-            key={ride._id}
-            className="border p-3 rounded-lg shadow-sm hover:shadow-md transition"
-          >
-            <p>
-              <strong>{ride.vehicleName}</strong> —{" "}
-              {ride.travelFrom} to {ride.travelTo}
-            </p>
-            <p>
-              <span className="text-sm text-gray-500">
-                Seats: {ride.availableSeats} | Date:{" "}
-                {new Date(ride.travelDate).toLocaleDateString()}
-              </span>
-            </p>
-          </li>
+          <RideCard key={ride._id} ride={ride} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

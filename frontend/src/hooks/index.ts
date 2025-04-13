@@ -27,7 +27,7 @@ export const useRides = () => {
         const response = await axios.get("http://localhost:3000/api/post/all");
         console.log(response);
         
-        setRides(response.data.post);
+        setRides(response.data.posts);
       } catch (error) {
         console.error("Error fetching rides:", error);
       } finally {
